@@ -1,0 +1,154 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@model List<RedBoxCar.Web.Views.CheckOut.CartProductModel>
+
+@{
+    int totalItemsCount = 0;
+    int averagePrepTime = 0;
+    decimal totalPrice = 0;
+    if (Model.Count > 0)
+    {
+        totalItemsCount = @Model.Select(m => m.Quantity).Sum();
+        averagePrepTime = (int)@Model.Select(m => m.Product.PreparationTimeInMinutes).Sum() / (int)@Model.Select(m => m.Quantity).Sum();
+        totalPrice = @Model.Select(m => m.Total).Sum();
+    }
+
+    ViewData["Title"] = "Cart";
+}
+
+<section class="tf__cart_view mt_100 xs_mt_70 mb_100 xs_mb_70">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 wow fadeInUp" data-wow-duration="1s">
+                <div class="tf__cart_list">
+                    <div class="table-responsive">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th class="tf__pro_img">
+                                        Image
+                                    </th>
+
+                                    <th class="tf__pro_name">
+                                        details
+                                    </th>
+
+                                    <th class="tf__pro_status">
+                                        price
+                                    </th>
+
+                                    <th class="tf__pro_select">
+                                        quantity
+                                    </th>
+
+                                    <th class="tf__pro_tk">
+                                        total
+                                    </th>
+
+                                    <th class="tf__pro_icon">
+                                        <a class="clear_all" href="#" onClick="ClearAllProductItems()">clear all</a>
+                                    </th>
+                                </tr>
+                                @foreach (var cartProductModel in Model)
+                                {
+                                    <tr>
+                                    <td class="tf__pro_img">
+                                        <img src="@cartProductModel.Product.Image" alt="product" class="img-fluid w-100">
+                                    </td>
+
+                                    <td class="tf__pro_name">
+                                            <a class="title" asp-controller="ProductDetails" asp-action="ProductDetails" asp-route-id="@cartProductModel.Product.Id">@cartProductModel.Product.Name</a>
+                                            <span>@cartProductModel.Product.Details</span>
+                                            <p>@cartProductModel.Product.Rating</p>
+                                            <p>@cartProductModel.Product.Type</p>
+                                    </td>
+                                    
+                                    <td class="tf__pro_status">
+                                            <h6>@cartProductModel.Product.Price</h6>
+                                    </td>
+
+                                    <td class="tf__pro_select">
+                                        <div class="quentity_btn">
+                                            <input type="text" placeholder="@cartProductModel.Quantity">
+                                        </div>
+                                    </td>
+
+                                    <td class="tf__pro_tk">
+                                            <h6>@cartProductModel.Total</h6>
+                                    </td>
+
+                                    <td class="tf__pro_icon">
+                                        <a href="#" onclick="DeleteCartItems(@cartProductModel.Product.Id)"><i class="far fa-times"></i></a>
+                                    </td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 wow fadeInUp" data-wow-duration="1s">
+                <div class="tf__cart_list_footer_button mt_50">
+                    <div class="row">
+                         <div class="col-xl-5 col-md-6">
+                            <div class="tf__cart_list_footer_button_text">
+                                <h6>Checkout cart</h6>
+                                <p>Items Count: <span>@totalItemsCount</span></p>
+                                <p>Total Preparation Time : <span>@averagePrepTime min</span></p>
+                                <p class="total"><span>total:</span> <span>$@totalPrice</span></p>
+                                @if (SignInManager.IsSignedIn(User))
+                                {
+                                    <a style="cursor:pointer" class="common_btn" onclick="redirectToCheckout(@totalItemsCount, @averagePrepTime, @totalPrice)">checkout</a>
+                                }
+                                else
+                                {
+                                    <a class="common_btn" asp-area="Identity" asp-page="/Account/Login">checkout</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function DeleteCartItems(id) { 
+        console.log("Add to cart");
+        console.log(id);
+        var list = localStorage.getItem("CartItems");
+        list = list ? JSON.parse(list) : [];
+
+        const index = list.indexOf(id.toString());
+
+        // If the item is found (index is not -1), remove it from the array
+        if (index > -1) {
+            list.splice(index, 1);
+        }
+        console.log(id);
+        // Save the updated array back to localStorage
+        localStorage.setItem("CartItems", JSON.stringify(list));
+        redirectToCart();
+    }
+
+    function ClearAllProductItems() {
+        localStorage.setItem("CartItems", []);
+        redirectToCart();
+    }
+
+    function redirectToCart() {
+        var cartItemsIds = localStorage.getItem('CartItems');
+        window.location.href = '/Orders/Cart?cartItemIds=' + encodeURIComponent(cartItemsIds);
+    }
+
+    function redirectToCheckout(itemsCount, totalPreparationtime, totalPrice) {
+        console.log(itemsCount)
+        console.log(totalPreparationtime)
+        console.log(totalPrice)
+        var cartItemsIds = localStorage.getItem('CartItems');
+        console.log(cartItemsIds)
+        window.location.href = '/CheckOut/CheckOut?itemsCount=' + itemsCount + '&totalPreparationtime=' + totalPreparationtime + '&totalPrice=' + totalPrice + '&cartItems=' + cartItemsIds;
+    }
+</script>

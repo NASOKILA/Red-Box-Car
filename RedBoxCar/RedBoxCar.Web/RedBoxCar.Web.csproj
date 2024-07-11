@@ -1,0 +1,82 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>aspnet-RedBoxCar.Web-695d96aa-bbf2-47b5-9f0d-b0ac24fc3a55</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Views\NewFolder1\**" />
+    <Content Remove="Views\NewFolder1\**" />
+    <EmbeddedResource Remove="Views\NewFolder1\**" />
+    <None Remove="Views\NewFolder1\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Views\Home\Index1.cshtml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\Home\Index1.cshtml" />
+    <Content Remove="Views\Home\_Layout.cshtml" />
+    <Content Remove="Views\Home\_Layout1.cshtml" />
+    <Content Remove="wwwroot\css\all.min.css" />
+    <Content Remove="wwwroot\css\animate.css" />
+    <Content Remove="wwwroot\css\bootstrap.min.css" />
+    <Content Remove="wwwroot\css\jquery.exzoom.css" />
+    <Content Remove="wwwroot\css\nice-select.css" />
+    <Content Remove="wwwroot\css\responsive.css" />
+    <Content Remove="wwwroot\css\slick.css" />
+    <Content Remove="wwwroot\css\spacing.css" />
+    <Content Remove="wwwroot\css\style.css" />
+    <Content Remove="wwwroot\css\venobox.min.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\css\all.min.css" />
+    <None Include="wwwroot\css\animate.css" />
+    <None Include="wwwroot\css\bootstrap.min.css" />
+    <None Include="wwwroot\css\jquery.exzoom.css" />
+    <None Include="wwwroot\css\nice-select.css" />
+    <None Include="wwwroot\css\responsive.css" />
+    <None Include="wwwroot\css\slick.css" />
+    <None Include="wwwroot\css\spacing.css" />
+    <None Include="wwwroot\css\style.css" />
+    <None Include="wwwroot\css\venobox.min.css" />
+    <None Include="wwwroot\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\js\Font-Awesome.js" />
+    <None Include="wwwroot\js\isotope.pkgd.min.js" />
+    <None Include="wwwroot\js\JavaScript" />
+    <None Include="wwwroot\js\jquery-3.6.0.min.js" />
+    <None Include="wwwroot\js\jquery.countup.min.js" />
+    <None Include="wwwroot\js\jquery.exzoom.js" />
+    <None Include="wwwroot\js\jquery.nice-select.min.js" />
+    <None Include="wwwroot\js\jquery.waypoints.min.js" />
+    <None Include="wwwroot\js\main.js" />
+    <None Include="wwwroot\js\slick.min.js" />
+    <None Include="wwwroot\js\sticky_sidebar.js" />
+    <None Include="wwwroot\js\venobox.min.js" />
+    <None Include="wwwroot\js\wow.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.21" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.23" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.23" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.23" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.23">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="HTML\Js\" />
+  </ItemGroup>
+
+</Project>

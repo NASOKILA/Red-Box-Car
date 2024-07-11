@@ -1,0 +1,73 @@
+﻿@model RedBoxCar.Web.Models.ViewModels.CheckoutViewModel
+@{
+    ViewData["Title"] = "CheckOut";
+}
+
+<section class="tf__breadcrumb" style="background: url(/images/RedBoxCarLogo.png);">
+    <div style="padding: 250px 0px 132px 0px;">
+        <div class="container">
+         </div>
+    </div>
+</section>
+
+<section class="tf__cart_view mt_100 xs_mt_70 mb_100 xs_mb_70">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-8 col-lg-7 wow fadeInUp" data-wow-duration="1s">
+                <div class="tf__checkout_form">
+                    <div class="tf__check_form">
+                        <form asp-action="CheckOut" method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                         <div class="row">
+                                <div class="col-md-6 col-lg-12 col-xl-6">
+                                    <div class="tf__check_single_form">
+                                        <input type="text" placeholder="Street Address *"  asp-for="@Model.StreetAddress" class="form-control" autocomplete="username" aria-required="true" />
+                                        <span asp-validation-for="@Model.StreetAddress" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-12 col-xl-6">
+                                    <div class="tf__check_single_form">
+                                        <input type="text" placeholder="Town / City *" asp-for="@Model.TownCity" class="form-control" autocomplete="username" aria-required="true" />
+                                        <span asp-validation-for="@Model.TownCity" class="text-danger"></span>
+                                    
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-12 col-xl-6">
+                                    <div class="tf__check_single_form">
+                                        <input type="text" placeholder="Zip *" asp-for="@Model.ZipCode" class="form-control" autocomplete="username" aria-required="true" />
+                                        <span asp-validation-for="@Model.ZipCode" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-12 col-xl-6">
+                                    <div class="tf__check_single_form">
+                                        <input type="text" placeholder="Phone *" asp-for="@Model.Phone" class="form-control" autocomplete="username" aria-required="true" />
+                                        <span asp-validation-for="@Model.Phone" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <input type="hidden" asp-for="@Model.TotalItemsCount" value="@ViewData["TotalItemsCount"]" />
+                                <input type="hidden" asp-for="@Model.TotalPreparationtime" value="@ViewData["TotalPreparationTime"]" />
+                                <input type="hidden" asp-for="@Model.TotalPrice" value="@ViewData["TotalPrice"]" />
+                                <input type="hidden" asp-for="@Model.CartItems" value="@ViewData["CartItems"]" />
+                            </div>
+                            <div class="col-xl-4 col-lg-5 wow fadeInUp" data-wow-duration="1s">
+                                <div id="sticky_sidebar" class="tf__cart_list_footer_button">
+                                    <div class="tf__cart_list_footer_button_text">
+                                        <h6>Checkout</h6>
+                                        <p>Items Count: <span>@ViewData["TotalItemsCount"]</span></p>
+                                        <p>Total Preparation Time: <span>@ViewData["TotalPreparationTime"]</span><span> min</span></p>
+                                        <p class="total"><span>total:</span> <span>$@ViewData["TotalPrice"]</span></p>
+                                    </div>
+                                </div>
+                                <br />
+                                <button class="common_btn" type="submit">Continue To Payment</button>
+                            </div>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

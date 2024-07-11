@@ -1,0 +1,80 @@
+﻿@model RedBoxCar.Web.Models.ViewModels.UserViewModel;
+@{
+    ViewData["Title"] = "EditUser";
+}
+<section class="tf__dashboard mt_100 xs_mt_70 mb_100 xs_mb_70">
+    <div class="container">
+        <div class="tf__dashboard_area">
+            <div class="row">
+                <div class="col-xl-3 col-lg-4 wow fadeInUp" data-wow-duration="1s">
+                    <div class="tf__dashboard_menu">
+                        <div class="dasboard_header">
+                            <h2>@Model.FullName</h2>
+                        </div>
+                        <ul>
+                            <li>
+                                <a asp-area="" asp-controller="Account" asp-action="Users">
+                                    <span><i class="fas fa-user"></i></span>
+                                    Parsonal Info
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-controller="OrdersStatus" asp-action="OrderStatus">
+                                    <span><i class="fas fa-bags-shopping"></i></span>
+                                    Order
+                                </a>
+                                </a>
+                            </li>
+                        
+                            <li><a asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })"><span> <i class="fas fa-sign-out-alt"></i></span> Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xl-9 col-lg-8 wow fadeInUp" data-wow-duration="1s">
+                    <div class="tf__dashboard_content">
+                        <div class="tf_dashboard_body">
+                            <h3>
+                                edit information<a class="dash_add_new_address" asp-controller="Account" asp-action="Users">cancel</a>
+                            </h3>
+
+                            <div class="tf_dash_personal_info">
+                                <div class="tf_dash_personal_info_edit comment_input p-0 mb_0">
+                                    <form asp-action="UpdateUser" method="post">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="tf__comment_imput_single">
+                                                    <label>name</label>
+                                                    <input type="text" id="FullName" placeholder="FullName" name="FullName" asp-for="@Model.FullName" />
+
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6">
+                                                <div class="tf__comment_imput_single">
+                                                    <label>email</label>
+                                                    <input type="text" id="Email" placeholder="Email" name="Email" asp-for="@Model.Email" />
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-6 col-lg-6">
+                                                <div class="tf__comment_imput_single">
+                                                    <label>phone</label>
+                                                    <input type="text" id="Phone" placeholder="PhoneNumber" name="PhoneNumber" asp-for="@Model.PhoneNumber" />
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-12">
+                                                <div class="tf__comment_imput_single">
+                                                    <label>address</label>
+                                                    <input type="text" id="Address" placeholder="Address" name="Address" asp-for="@Model.Address" />
+                                                </div>
+                                                <button type="submit" class="common_btn">submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

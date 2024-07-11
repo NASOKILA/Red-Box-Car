@@ -1,0 +1,77 @@
+﻿@model RedBoxCar.Web.Models.ViewModels.PaymentMethodViewModel
+@{
+    ViewData["Title"] = "Payment";
+}
+
+<style>
+    .selected-payment-method {
+        border: 2px solid #007bff; 
+        box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+    }
+</style>
+
+<section class="tf__payment_page mt_100 xs_mt_70 mb_100 xs_mb_70">
+    <div class="container">
+        <form asp-action="Payment" method="post">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="tf__payment_area">
+                        <b>Select a Payment option:</b>
+                        <div class="row">
+                            <div style="cursor:pointer" class="col-lg-3 col-sm-6 col-md-4 wow fadeInUp" data-wow-duration="1s">
+                                <div class="tf__single_payment" onclick="selectPaymentMethod(this, 'Card')">
+                                    <img src="/images/CreditCardLogo.png" alt="Credit Card" class="img-fluid w-100">
+                                </div>
+                            </div>
+                            <div style="cursor:pointer" class="col-lg-3 col-sm-6 col-md-4 wow fadeInUp" data-wow-duration="1s">
+                                <div class="tf__single_payment" onclick="selectPaymentMethod(this, 'Cash')">
+                                    <img src="/images/Cash.png" alt="Cash" class="img-fluid w-100">
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <input type="hidden" id="selectedPaymentMethod" name="PaymentSelected" asp-for="@Model.PaymentSelected" />
+                    <input type="hidden" asp-for="@Model.TotalItemsCount" value="@ViewData["TotalItemsCount"]" />
+                    <input type="hidden" asp-for="@Model.TotalPreparationtime" value="@ViewData["TotalPreparationTime"]" />
+                    <input type="hidden" asp-for="@Model.TotalPrice" value="@ViewData["TotalPrice"]" />
+                    <input type="hidden" asp-for="@Model.CartItems" value="@ViewData["CartItems"]" />
+                    <input type="hidden" asp-for="@Model.PaymentSelected" value="@ViewData["PaymentSelected"]" />
+                </div>
+                <br/>
+                <div class="col-lg-4 wow fadeInUp" data-wow-duration="1s">
+                    <div id="sticky_sidebar" class="tf__cart_list_footer_button">
+                        <div class="tf__cart_list_footer_button_text">
+                            <h6>Checkout Cart </h6>
+                            <p>Items Count: <span>@ViewData["TotalItemsCount"]</span></p>
+                            <p>Total Preparation Time: <span>@ViewData["TotalPreparationTime"] min</span></p>
+                            <p class="total"><span>total:</span> <span>$@ViewData["TotalPrice"]</span></p>
+
+                        </div>
+                    </div>
+                    <br />
+                    <button type="submit" class="common_btn">Complete Order</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+   <script>
+        function selectPaymentMethod(element, paymentMethodId) {
+            document.querySelectorAll('.tf__single_payment').forEach(function (el) {
+                el.addEventListener('click', function () {
+                    // Remove 'selected-payment-method' class from all payment methods
+                    document.querySelectorAll('.tf__single_payment').forEach(function (el) {
+                        el.classList.remove('selected-payment-method');
+                    });
+
+                    // Add 'selected-payment-method' class to the clicked element
+                    this.classList.add('selected-payment-method');
+                });
+            });
+            document.getElementById('selectedPaymentMethod').value = paymentMethodId;
+        }
+
+   </script>                     

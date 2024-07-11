@@ -1,0 +1,56 @@
+﻿@{
+    @model RedBoxCar.Web.Models.Products
+    ViewData["Title"] = "ProductDetails";
+}
+
+<section class="tf__menu_details mt_100 xs_mt_75 mb_95 xs_mb_65">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 col-sm-10 col-md-9 wow fadeInUp" data-wow-duration="1s">
+                <div class="exzoom hidden" id="exzoom">
+                    <div class="exzoom_img_box tf__menu_details_images">
+                        <ul class='exzoom_img_ul'>
+                            <li><img class="zoom ing-fluid w-100" src="@Model.Image" alt="product"></li>
+                        </ul>
+                    </div>
+                     </div>
+            </div>
+            <div class="col-lg-7 wow fadeInUp" data-wow-duration="1s">
+                <div class="tf__menu_details_text">
+                    <h2>@Model.Name</h2>
+                    <h3 class="price">$@Model.Price</h3>
+                    <p class="rating">
+                        @for (int i = 0; i < Model.Rating; i++)
+                        {
+                            <i class="fas fa-star"></i>
+                        }
+                        @for (int i = Model.Rating; i < 5; i++)
+                        {
+                            <i class="far fa-star"></i>
+                        }
+                        <span>(201)</span> <!-- Update this as needed -->
+                    </p>
+
+                    <p class="short_description">
+                        @Model.Details
+                    </p>
+                    <ul class="details_button_area d-flex flex-wrap">
+                        <li><a class="common_btn" href="#" onclick="AddToCart('@Model.Id')">add to cart</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+</section>
+
+<script>
+    function AddToCart(productId) {
+        console.log("Add to cart");
+        console.log(productId);
+        var list = localStorage.getItem("CartItems");
+        list = list ? JSON.parse(list) : [];
+        list.push(productId)
+        localStorage.setItem("CartItems", JSON.stringify(list));
+    }
+</script>

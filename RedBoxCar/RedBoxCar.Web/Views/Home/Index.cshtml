@@ -1,0 +1,111 @@
+﻿@model List<RedBoxCar.Web.Models.Products>
+@{
+    ViewData["Title"] = "Home Page";
+    int currentPageNumber = (int)ViewData["PageNumber"];
+    string productType = currentPageNumber == 1 ? "Meals" : "Desserts";
+}
+
+<section class="tf__menu_page mt_100 xs_mt_70 mb_100 xs_mb_70">
+        <div class="container">
+        <form class="tf__menu_search_area" asp-controller="Home" asp-action="Index" method="get">
+            <div class="row">
+                <div class="col-lg-6 col-md-5">
+                    <div class="tf__menu_search">
+                        <input type="text" placeholder="search..." name="searchString" value="@ViewData["CurrentSearchString"]">
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3">
+                    <div class="tf__menu_search">
+                        <button class="common_btn" type="submit">Search</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+            <div class="row">
+            @if (currentPageNumber == 1)
+            {
+                <h1>Meals</h1>
+            }
+            else 
+            {
+                <h1>Desserts</h1>
+            }
+            @foreach (var product in Model.Where(p => currentPageNumber == 1 ? p.Type == "Meal" : p.Type == "Dessert"))
+            {
+                <div class="col-xl-3 col-sm-6 col-lg-4 wow fadeInUp" data-wow-duration="1s">
+                    <div class="tf__menu_item">
+                        <div class="tf__menu_item_img">
+                            <img src="@product.Image" alt="menu" class="img-fluid w-100" height="50">
+                        </div>
+                        <div class="tf__menu_item_text">
+                            <a class="title" asp-controller="ProductDetails" asp-action="ProductDetails" asp-route-id="@product.Id">@product.Name</a>
+
+                            <div style="height: 80px;">@product.Details</div>
+                            <p class="rating">
+                            @for (int i = 0; i < product.Rating; i++)
+                            {
+                                <i class="fas fa-star"></i>
+                            }
+                            @for (int i = product.Rating; i < 5; i++)
+                            {
+                                <i class="far fa-star"></i>
+                            }
+                            </p>
+                            
+                            <h5 class="price">$@product.Price</h5>
+                            <a class="tf__add_to_cart" href="#" data-bs-toggle="modal" data-bs-target="#cartModal" onclick="AddToCart('@product.Id')">
+                                add to cart
+                            </a>
+                            <ul class="d-flex flex-wrap justify-content-end">
+                                <li><a asp-controller="ProductDetails" asp-action="ProductDetails" asp-route-id="@product.Id"><i class="far fa-eye"></i></a></li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            }
+            </div>
+    
+            </div>
+            <div class="tf__pagination mt_50">
+                <div class="row">
+                    <div class="col-12">
+                        <nav aria-label="...">
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a class="page-link" href="#"><i class="fas fa-long-arrow-alt-left"></i></a>
+                                </li>
+                        @if (currentPageNumber == 1)
+                        {
+
+                            <li class="page-item  active"><a class="page-link" href="/?pageNumber=1">1</a></li>
+                            <li class="page-item"><a class="page-link" href="/?pageNumber=2">2</a></li>
+                        }
+                        else
+                        {
+                            <li class="page-item"><a class="page-link" href="/?pageNumber=1">1</a></li>
+                            <li class="page-item active"><a class="page-link" href="/?pageNumber=2">2</a></li>
+
+                        }
+                        <li class="page-item">
+                                    <a class="page-link" href="#"><i class="fas fa-long-arrow-alt-right"></i></a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<script>
+    function AddToCart(productId) {
+        console.log("Add to cart");
+        console.log(productId);
+        var list = localStorage.getItem("CartItems");
+        list = list ? JSON.parse(list) : [];
+        list.push(productId)
+        localStorage.setItem("CartItems", JSON.stringify(list));
+    }
+</script>

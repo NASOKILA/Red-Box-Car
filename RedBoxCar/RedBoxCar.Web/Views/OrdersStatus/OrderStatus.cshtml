@@ -1,0 +1,75 @@
+﻿@{
+    ViewData["Title"] = "OrdersStatus";
+}
+
+<!--=========================
+    DASHBOARD START
+==========================-->
+<section class="tf__dashboard mt_100 xs_mt_70 mb_100 xs_mb_70">
+    <div class="container">
+        <div class="tf__dashboard_area">
+            <div class="row">
+                <div class="col-xl-3 col-lg-4 wow fadeInUp" data-wow-duration="1s">
+                    <div class="tf__dashboard_menu">
+                        <div class="dasboard_header">
+                            <h2>Kiril Hadzhyiski    </h2>
+                        </div>
+                        <ul>
+                            <li>
+                                <a asp-area="" asp-controller="Account" asp-action="Users">
+                                    <span><i class="fas fa-user"></i></span>
+                                    Parsonal Info
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-controller="OrdersStatus" asp-action="OrderStatus">
+                                    <span><i class="fas fa-bags-shopping"></i></span>
+                                    Order
+                                </a>
+                            </li>
+                            <li><a asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })"><span> <i class="fas fa-sign-out-alt"></i></span> Logout</a>
+                                </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xl-9 col-lg-8 wow fadeInUp" data-wow-duration="1s">
+                    <div class="tf__dashboard_content">
+                        <div class="tf_dashboard_body">
+                            <h3>order list</h3>
+                            <div class="tf_dashboard_order">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr class="t_header">
+                                                <th>Order</th>
+                                                <th>Delivery Time</th>
+                                                <th>Total Price</th>
+                                                <th>Product Count</th>
+                                                <th>Creation Time</th>
+                                                <th>Payment Method</th>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <h5>#2545758745</h5>
+                                                </td>
+                                                <td>
+                                                    <p>July 16, 2022</p>
+                                                </td>
+                                                <td>
+                                                    <span class="complete">Complated</span>
+                                                </td>
+                                                <td>
+                                                    <h5>$560</h5>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

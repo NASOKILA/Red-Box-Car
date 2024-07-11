@@ -1,0 +1,172 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RedBoxCar</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/RedBoxCar.Web.styles.css" asp-append-version="true" />
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="stylesheet" href="~/css/all.min.css">
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/slick.css">
+    <link rel="stylesheet" href="~/css/nice-select.css">
+    <link rel="stylesheet" href="~/css/venobox.min.css">
+    <link rel="stylesheet" href="~/css/animate.css">
+    <link rel="stylesheet" href="~/css/jquery.exzoom.css">
+    <link rel="stylesheet" href="~/css/spacing.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/responsive.css">
+
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">RedBoxCar.Web</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" onclick="redirectToCart()" style="cursor:pointer;">Cart</a>
+                        </li>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="CheckOut" asp-action="CheckOut">CheckOut</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Payment" asp-action="Payment">Payment</a>
+                            </li>
+                        }
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer style="background: url(images/footer_bg.jpg);">
+        <div class="footer_overlay pt_100 xs_pt_70 pb_100 xs_pb_20">
+            <div class="container wow fadeInUp" data-wow-duration="1s">
+                <div class="row justify-content-between">
+                    <div class="col-xxl-4 col-lg-4 col-sm-9 col-md-7">
+                        <div class="tf__footer_content">
+                            <a class="footer_logo" href="index.html">
+                                <img src="/images/RedBoxCarLogo.png" alt="RedBoxCar" class="img-fluid w-100">
+                            </a>
+                            <span>Nestled in the scenic beauty of Red Lodge, Montana,
+                                Red Box Car serves up mouthwatering burgers and shakes in a cozy, retro-inspired atmosphere. With a commitment to locally-sourced ingredients and timeless recipes, this iconic spot is a must-visit for food lovers and nostalgia seekers alike. 
+                                Come experience the magic of the mountains while enjoying classic American fare at Red Box Car.</span>
+                        </div>
+                    </div>
+                    <div class="col-xxl-2 col-lg-2 col-sm-5 col-md-5">
+                        <div class="tf__footer_content">
+                            <h3>Short Link</h3>
+                            <ul>
+                                <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xxl-2 col-lg-2 col-sm-6 col-md-5 order-md-4">
+                        <div class="tf__footer_content">
+                            <h3>Help Link</h3>
+                            <ul>
+                                <li><a asp-area ="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-lg-4 col-sm-9 col-md-7 order-lg-4">
+                        <div class="tf__footer_content">
+                            <h3>contact us</h3>
+                            <p class="info"><i class="fas fa-phone-alt"></i> +359/88799/4284</p>
+                            <p class="info"><i class="fas fa-envelope"></i> craxbus@gmail.com</p>
+                            <p class="info"><i class="far fa-map-marker-alt"></i> Red Lodge Montana</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tf__footer_bottom d-flex flex-wrap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="tf__footer_bottom_text">
+                            <p>Copyright ©<b> RedBoxCar</b> 2023. All Rights Reserved</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+
+
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <!--jquery library js-->
+    <script src="~/js/jquery-3.6.0.min.js"></script>
+    <!--bootstrap js-->
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <!--font-awesome js-->
+    <script src="~/js/Font-Awesome.js"></script>
+    <!-- slick slider -->
+    <script src="~/js/slick.min.js"></script>
+    <!-- isotop js -->
+    <script src="~/js/isotope.pkgd.min.js"></script>
+    <!-- counter up js -->
+    <script src="~/js/jquery.waypoints.min.js"></script>
+    <script src="~/js/jquery.countup.min.js"></script>
+    <!-- nice select js -->
+    <script src="~/js/jquery.nice-select.min.js"></script>
+    <!-- venobox js -->
+    <script src="~/js/venobox.min.js"></script>
+    <!-- sticky sidebar js -->
+    <script src="~/js/sticky_sidebar.js"></script>
+    <!-- wow js -->
+    <script src="~/js/wow.min.js"></script>
+    <!-- ex zoom js -->
+    <script src="~/js/jquery.exzoom.js"></script>
+
+    <!--main/custom js-->
+    <script src="~/js/main.js"></script>
+    <script>
+        if (localStorage.getItem("CartItems") === null) {
+            localStorage.setItem("CartItems", []);
+        }
+    </script>
+    <script>
+        function redirectToCart() {
+            var cartItemsIds = localStorage.getItem('CartItems');
+            window.location.href = '/Orders/Cart?cartItemIds=' + encodeURIComponent(cartItemsIds);
+        }
+    </script>
+</body>
+</html>
